@@ -1,6 +1,7 @@
 # Requirements / Tasks
 
-1. Please change the models so that the following functionality works. How do you test it?
+1. **Please change the models so that the following functionality works. How do you test it?**
+
     I need to mention that it is better to have this business logic on view level,
     but since it is required to do on models level, here is the solution
 
@@ -20,6 +21,7 @@
         - company will not have more than one headquarter  
         
     - **A company should at all times have exactly one headquarter**
+    
         I'm not sure that it is possible to do this at `models.py` level for cases
         when Company has just been created. But once we have assigned headquarters,
         we can do it.
@@ -35,17 +37,20 @@
 
 2. Please add an API with the help of django-rest-framework. How would you test the functionality?
 
-    - Write an simple read-only API endpoint for companies to get the company name + street+postal_code+city from the headquarter office
-    - Write an simple read-only API endpoint to get all the offices for a company
+    - **Write an simple read-only API endpoint for companies to get the company name + street+postal_code+city from the headquarter office**
+    - **Write an simple read-only API endpoint to get all the offices for a company**
+        
         Implemented it in CompanyListViewSet.offices()
     
-    - Write an API endpoint to change the headquarter of the company
+    - **Write an API endpoint to change the headquarter of the company**
+    
         Implemented Custom serializer with `get_fields()` methods that adjusts
         `queryset` for `headquarters` limiting it to company offices prior to validation.
 
 3. BONUS: 
 
     - **Customize the API endpoint to include the sum of rent for all offices of a Company. How would you approach / test this?**
+       
        Added `.annotate(total_rent=Sum('office__monthly_rent'))` to queryset in company list view
        Wrote test `test_monthly_rent` that creates 10 companies, for every company creates 10 offices with random
        price for monthly rent. After that checked that totals in response are equal to totals of randomly
